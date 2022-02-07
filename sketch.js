@@ -1,37 +1,81 @@
-//declare variables 
-//source text: first 2 verses of It called: Freefall by Rainbow Kitten Surprise
-let source_text = `Called to the Devil and the Devil did come I said to the Devil, " Devil do you like drums? Do you like cigarettes, dominoes, rum?"He said only "sundown, Sundays, Christmas" Some day's end when I need a few friends Now and again I could never hope to keep them Thought to give friends what I thought that they wanted Never had they needed a good friend as I've been
-Don't get me venting on friends who resent you 'Cause all you've ever done is been a noose to hang on to They thought was a necklace and reckless they fell into hell Where you both hang with nothing to do but` ;
-let search_word = 'Devil';
-let replace_word = "Stranger";
-let altered_text;
+var vert; //verticle value
+var horz //horizontal value
 
+function preload(){
+im = loadImage('https://m.media-amazon.com/images/I/61J-LIakH7L._SL1500_.jpg');//Temp for testing fft
+}
 
 function setup() {
-  createCanvas(500, 500);
-  //replace sub word in string
-  altered_text = source_text.replaceAll(search_word,replace_word);
+  createCanvas(1200, 400);
+  fft = new p5.FFT();
 }
 
 function draw() {
-  background(173,216,230);
+  background(220);
+  for(var i= 1;i <= 5; i++){
+    vert = 100 + 50 *(i-1);
+    circle(200,vert,50);
+  }// draw verticle line of circle
   
-  //text(source_text,10,10,400);
-  
-  textFont('Brush Script MT');
-  textSize(26);
-  let show_text;
-  if(mouseIsPressed){
-    show_text = source_text;
-    //Change text to reflect change change in text   
-    background("Red");
-    textFont('Fantasy');
-  }else{
-    show_text =altered_text;
-    
+  for(var j =1; j <= 4; j++){
+    if(j <= 2){
+      horz = 200 + (100 * (3 / (2*j * sqrt(3))));
+      vert = 200 - (100/(2*j));
+    }else{
+      horz = 200 - (100 * (3 / (2 * (j-2) * sqrt(3))));
+      vert = 200 + (100/(2*(j-2)));
+    }
+    circle(horz,vert,50);
   }
-  text(show_text,10,10, width*0.9);
+  for(var k =1; k <= 4; k++){
+    if(k <= 2){
+      horz = 200 + (100 * (3 / (2*k * sqrt(3))));
+      vert = 200 + (100/(2*k));
+    }else{
+      horz = 200 - (100 * (3 / (2 * (k-2) * sqrt(3))));
+      vert = 200 - (100/(2*(k-2)));
+    }
+    circle(horz,vert,50);
+  }
+  x1 = 200 + (100 * (3 / (2 * sqrt(3))));
+  x2 = 200 - (100 * (3 / (2 * sqrt(3))));
+  x3 = 200 + (100 * (3 / (4 * sqrt(3))));
+  x4 = 200 - (100 * (3 / (4 * sqrt(3))));
+  y1 = 200 - (100/2);
+  y2 = 200 + (100/2);
+  y3 = 200 - (100/4);
+  y4 = 200 + (100/4);
   
-  //The choice of replacing 'devil' with 'stranger' almost the lyrics feel more innocent. As the song is about a person trying to justify their own toxic behavior, and blame everyone but himself for being alone. By him talking to a stranger they can come off as almost justified in blaming his friends for leaving him. To reflect this change in tone we chose a light blue to invoke tranquility, and a more fluid text. However, when you reveal the original text the font and background color becomes aggressive.
+  line(x1,y1,x1,y2);
+  line(x2,y1,x2,y2);
+  line(x3,y3,x3,y4);
+  line(x4,y3,x4,y4);
+  line(x1,y1,200,100);
+  line(x2,y1,200,100);
+  line(x1,y4+25,200,300);
+  line(x2,y4+25,200,300);
+  line(x3,y1+25,200,150);
+  line(x4,y1+25,200,150);
+  line(x3,y2-25,200,250);
+  line(x4,y2-25,200,250);
+  line(200,100,200,300);
+  line(x1,y1,x2,y2);
+  line(x1,y3+75,x2,y4-75);
+  line(200,100,x3,y3);
+  line(200,100,x4,y3);
+  line(x3,y4,200,300);
+  line(x4,y4,200,300);
+  
+  //fft work in progress
+  image(im, 400, 0, 400,400);
+  var w = im.width;
+  var h = im.height;
+  
+  
+  //reorganize
+  
+  
+  
+  
   
 }
